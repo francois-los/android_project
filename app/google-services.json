@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "538500264609",
+    "project_id": "passwordstorage-8cdc5",
+    "storage_bucket": "passwordstorage-8cdc5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538500264609:android:b60b21d7151be20beef6e0",
+        "android_client_info": {
+          "package_name": "com.group1.safePassword"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538500264609-cbmgjgvnblu2nldddhmfar3tqpkg4svt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCscn6q8C9oWSRDb6V--nVAuoGdd-AijTw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538500264609-cbmgjgvnblu2nldddhmfar3tqpkg4svt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
