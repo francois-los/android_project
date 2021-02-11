@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyAppTest</string>
+    <string name="result_display">Result Display..</string>
+    <string name="scan">Scan</string>
+    <string name="todo">TODO</string>
+    <string name="one">1</string>
+    <string name="name">Home Loan Account</string>
+    <string name="amount">53.96</string>
+    <string name="iban">GL2892415196580170</string>
+    <string name="currency">$</string>
+</resources>
