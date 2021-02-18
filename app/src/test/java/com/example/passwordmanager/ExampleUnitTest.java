@@ -1,4 +1,4 @@
-package com.example.myapptest;
+package com.example.passwordmanager;
 
 import org.junit.Test;
 

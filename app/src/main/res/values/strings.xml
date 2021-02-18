@@ -1,7 +1,17 @@
 <resources>
-    <string name="app_name">MyAppTest</string>
+    <string name="app_name">Password Manager</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgotPassword">Forgot Password ?</string>
+    <string name="alreadyAccount">You already have an account ?</string>
+
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+
     <string name="result_display">Result Display..</string>
     <string name="scan">Scan</string>
+
+
     <string name="todo">TODO</string>
     <string name="one">1</string>
     <string name="name">Home Loan Account</string>

@@ -1,4 +1,4 @@
-package com.example.myapptest;
+package com.example.passwordmanager;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
-public class passwordpage extends Fragment implements dataListner{
+public class passwordpage extends Fragment implements dataListner {
 
     private ListView mListView;
 

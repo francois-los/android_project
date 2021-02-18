@@ -7,6 +7,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:538500264609:android:f1d95e9cb73bec92eef6e0",
+        "android_client_info": {
+          "package_name": "com.example.passwordmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538500264609-cbmgjgvnblu2nldddhmfar3tqpkg4svt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCscn6q8C9oWSRDb6V--nVAuoGdd-AijTw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538500264609-cbmgjgvnblu2nldddhmfar3tqpkg4svt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:538500264609:android:b60b21d7151be20beef6e0",
         "android_client_info": {
           "package_name": "com.group1.safePassword"
