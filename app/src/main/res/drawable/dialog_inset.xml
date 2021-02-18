@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/dialog_background"
+    android:insetTop="100dp"
+    android:insetRight="10dp"
+    android:insetBottom="15dp"
+    android:insetLeft="10dp">
+</inset>
