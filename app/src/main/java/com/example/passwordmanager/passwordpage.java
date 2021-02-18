@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
-public class passwordpage extends Fragment implements dataListner {
+public class PasswordPage extends Fragment implements dataListner {
 
     private ListView mListView;
 

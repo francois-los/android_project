@@ -14,7 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.passwordmanager.model.PasswordStorageModel;
+import com.example.passwordmanager.model.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,9 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
 
@@ -64,7 +61,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.toLoginView:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.registerButton:
                 registerUser();
@@ -107,24 +104,12 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                 FirebaseUser user = task.getResult().getUser();
                                 if(user != null) {
                                     String userId = user.getUid();
-//                                    UserModel newUser = new UserModel(email, password);
-
-                                    Map<String, String> newUser = new HashMap<>();
-                                    newUser.put("email", email);
-                                    newUser.put("password", password);
-                                    newUser.put("url", "passwordManagerApplication");
-                                    PasswordStorageModel passwordManagerApp = new PasswordStorageModel(newUser);
-
-                                    usersRef.document(userId).set(passwordManagerApp)
+                                    UserModel passwordManagerApp = new UserModel(email, password, "passwordManagerApplication");
+                                    db.collection(userId).document().set(passwordManagerApp)
                                             .addOnSuccessListener(aVoid -> {
                                                 Log.d("uId","registerUser:" + userId);
-
-
-//                                                REDIRECTION VERS LA PAGE DES MDP + store Activity as Login
-
-
-//                                    startActivity(new Intent(RegisterUser.this, ContentActivity.class));
-//                                    finish();
+                                                startActivity(new Intent(RegisterUser.this, PasswordPage.class));
+                                                finish();
                                             })
                                             .addOnFailureListener(e ->
                                                     Toast.makeText(RegisterUser.this, "Error", Toast.LENGTH_LONG).show());

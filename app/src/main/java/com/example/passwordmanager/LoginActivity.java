@@ -9,13 +9,20 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
 //    Login var
     private TextView register;
 
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private Intent intent;
 
-//        fingerPrint login
+
+    //        fingerPrint login
     private TextView textView;
     private ImageView imageView;
     private FingerprintManager fingerprintManager;
@@ -26,6 +33,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mAuthStateListener = firebaseAuth -> {
+            FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+            if (mFirebaseUser != null) {
+                intent = new Intent(LoginActivity.this, PasswordPage.class);
+            }
+        };
 //        login with email Adress
         register = (TextView) findViewById(R.id.register);
         register.setOnClickListener(this);
