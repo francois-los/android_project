@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MainPageActivity extends AppCompatActivity implements /*dataListner,*/ View.OnClickListener {
+public class MainPageActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView mListView;
     private TextView logout;

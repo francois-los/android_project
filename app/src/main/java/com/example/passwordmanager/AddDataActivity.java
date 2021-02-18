@@ -3,24 +3,17 @@ package com.example.passwordmanager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.example.passwordmanager.model.UserModel;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.math.BigInteger;
@@ -90,7 +83,7 @@ public class AddDataActivity extends AppCompatActivity implements View.OnClickLi
         byte [] md5input=password.getBytes();
         BigInteger md5Data= null;
         try{
-            md5Data= new BigInteger(1, md5.encryptMD5(md5input));
+            md5Data= new BigInteger(1, Md5.encryptMD5(md5input));
         }
         catch (Exception e){
             e.printStackTrace();

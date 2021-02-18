@@ -112,7 +112,7 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
                                     byte [] md5input=password.getBytes();
                                     BigInteger md5Data= null;
                                     try{
-                                        md5Data= new BigInteger(1, md5.encryptMD5(md5input));
+                                        md5Data= new BigInteger(1, Md5.encryptMD5(md5input));
                                     }
                                     catch (Exception e){
                                         e.printStackTrace();
