@@ -23,6 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.math.BigInteger;
+
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
 
     private TextView toLoginView;
@@ -104,7 +106,20 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                 FirebaseUser user = task.getResult().getUser();
                                 if(user != null) {
                                     String userId = user.getUid();
-                                    UserModel passwordManagerApp = new UserModel(email, password, "passwordManagerApplication");
+
+
+                                    byte [] md5input=password.getBytes();
+                                    BigInteger md5Data= null;
+                                    try{
+                                        md5Data= new BigInteger(1, md5.encryptMD5(md5input));
+                                    }
+                                    catch (Exception e){
+                                        e.printStackTrace();
+                                    }
+                                    String  md5Str= md5Data.toString(16);
+                                    Log.d("passwordHash", "onComplete: "+ md5Str);
+
+                                    UserModel passwordManagerApp = new UserModel(email, md5Str, "passwordManagerApplication");
                                     db.collection(userId).document().set(passwordManagerApp)
                                             .addOnSuccessListener(aVoid -> {
                                                 Log.d("uId","registerUser:" + userId);

@@ -3,7 +3,11 @@ package com.example.passwordmanager;
 import android.content.Intent;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,15 +20,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 //    Login var
     private TextView register;
+    private Button loginbtn;
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private Intent intent;
 
+//logIn
+    private TextView email;
+    private TextView password;
 
     //        fingerPrint login
     private TextView textView;
     private ImageView imageView;
+
     private FingerprintManager fingerprintManager;
     private FingerprintManager.AuthenticationCallback authenticationCallback;
 
@@ -32,7 +41,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = firebaseAuth -> {
@@ -42,6 +50,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         };
 //        login with email Adress
+        loginbtn = (Button) findViewById(R.id.loginButton);
+        loginbtn.setOnClickListener(this);
+
+
         register = (TextView) findViewById(R.id.register);
         register.setOnClickListener(this);
 
@@ -85,9 +97,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch(v.getId())
+        {
+            case R.id.loginButton :
+                email = (EditText)findViewById(R.id.email);
+                String mail = email.getText().toString().trim();
+                password = (EditText)findViewById(R.id.password);
+                String pass = password.getText().toString().trim();
+                if(mail.isEmpty()){
+                    email.setError("You must enter a email address");
+                    email.requestFocus();
+                    break;
+                }
+                if(!Patterns.EMAIL_ADDRESS.matcher(mail).matches()){
+                    email.setError("You must enter a valid email address");
+                    email.requestFocus();
+                    break;
+                }
+                if(pass.isEmpty()){
+                    password.setError("You must enter a password");
+                    password.requestFocus();
+                    break;
+                }
+                if(pass.length()<6){
+                    password.setError("You must enter a valid password more than 6 char");
+                    password.requestFocus();
+                    break;
+                }
+                Log.d("emailpass", mail+" "+pass);
+                break;
             case R.id.register:
-                startActivity(new Intent(this, RegisterUser.class));
+                startActivity(new Intent(LoginActivity.this, RegisterUser.class));
                 break;
         }
     }

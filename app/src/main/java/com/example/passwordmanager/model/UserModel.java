@@ -17,13 +17,9 @@ public class UserModel {
         this.url = url;
     }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() { return email; }
 
-    public String getPassword() {
-        return password;
-    }
+    public String getPassword() { return password; }
 
     public String getUrl(){ return url; }
 }
