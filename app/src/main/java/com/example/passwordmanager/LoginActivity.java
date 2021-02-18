@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,13 +50,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_main);
+        setContentView(R.layout.login_activity);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = firebaseAuth -> {
             FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
             if (mFirebaseUser != null) {
-                intent = new Intent(LoginActivity.this, PasswordPage.class);
+                intent = new Intent(LoginActivity.this, MainPageActivity.class);
             }
         };
 //        login with email Adress
@@ -119,7 +117,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 loginUser();
                 break;
             case R.id.register:
-                startActivity(new Intent(LoginActivity.this, RegisterUser.class));
+                startActivity(new Intent(LoginActivity.this, RegisterUserActivity.class));
                 break;
         }
     }
@@ -165,7 +163,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             }
             else {
-                startActivity(new Intent(LoginActivity.this, PasswordPage.class));
+                startActivity(new Intent(LoginActivity.this, MainPageActivity.class));
                 finish();
             }
         });

@@ -2,6 +2,9 @@
     <string name="app_name">Password Manager</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="url">WebSite Url</string>
+    <string name="save">Enregistrer</string>
+    <string name="saveTitle">Nouveau compte</string>
     <string name="forgotPassword">Forgot Password ?</string>
     <string name="alreadyAccount">You already have an account ?</string>
 

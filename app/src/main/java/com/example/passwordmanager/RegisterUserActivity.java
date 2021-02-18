@@ -25,10 +25,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.math.BigInteger;
 
-public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
+public class RegisterUserActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView toLoginView;
     private Button registerButton;
+
     private EditText editTextEmail, editTextPassword;
     private ProgressBar progressBar2;
 
@@ -123,16 +124,16 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                     db.collection(userId).document().set(passwordManagerApp)
                                             .addOnSuccessListener(aVoid -> {
                                                 Log.d("uId","registerUser:" + userId);
-                                                startActivity(new Intent(RegisterUser.this, PasswordPage.class));
+                                                startActivity(new Intent(RegisterUserActivity.this, MainPageActivity.class));
                                                 finish();
                                             })
                                             .addOnFailureListener(e ->
-                                                    Toast.makeText(RegisterUser.this, "Error", Toast.LENGTH_LONG).show());
+                                                    Toast.makeText(RegisterUserActivity.this, "Error", Toast.LENGTH_LONG).show());
                                 } else {
-                                    Toast.makeText(RegisterUser.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(RegisterUserActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
                                 }
                             } else {
-                                Toast.makeText(RegisterUser.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegisterUserActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
                             }
                         }
                     }

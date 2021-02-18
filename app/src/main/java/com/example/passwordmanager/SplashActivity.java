@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         mAuthStateListener = firebaseAuth -> {
             FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
             if (mFirebaseUser != null) {
-                intent = new Intent(SplashActivity.this, PasswordPage.class);
+                intent = new Intent(SplashActivity.this, MainPageActivity.class);
             }
         };
 

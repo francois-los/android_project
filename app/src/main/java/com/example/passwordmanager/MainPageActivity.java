@@ -2,7 +2,6 @@ package com.example.passwordmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 //import android.view.LayoutInflater;
 import android.view.View;
 //import android.view.ViewGroup;
@@ -14,17 +13,14 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.FirebaseError;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class PasswordPage extends AppCompatActivity implements /*dataListner,*/ View.OnClickListener {
+public class MainPageActivity extends AppCompatActivity implements /*dataListner,*/ View.OnClickListener {
 
     private ListView mListView;
     private TextView logout;
     private TextView refresh;
+    private FloatingActionButton addDataButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,8 +31,13 @@ public class PasswordPage extends AppCompatActivity implements /*dataListner,*/ 
 
         logout = findViewById(R.id.logout);
         logout.setOnClickListener(this);
+
+        addDataButton = findViewById(R.id.addDataButton);
+        addDataButton.setOnClickListener(this);
+
         refresh = findViewById(R.id.refresh);
         refresh.setOnClickListener(this);
+
         mListView = findViewById(R.id.list);
     }
 
@@ -48,9 +49,11 @@ public class PasswordPage extends AppCompatActivity implements /*dataListner,*/ 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.logout : startActivity(new Intent(PasswordPage.this, LoginActivity.class));
+            case R.id.logout : startActivity(new Intent(MainPageActivity.this, LoginActivity.class));
                 break;
-            case R.id.refresh: startActivity(new Intent(PasswordPage.this, PasswordPage.class));
+            case R.id.refresh: startActivity(new Intent(MainPageActivity.this, MainPageActivity.class));
+                break;
+            case R.id.addDataButton:startActivity(new Intent(MainPageActivity.this, AddDataActivity.class));
                 break;
         }
     }
