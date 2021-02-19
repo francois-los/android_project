@@ -100,23 +100,11 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
                             if(user != null) {
                                 String userId = user.getUid();
 
-//                                TEST ENCRYPT
+//                              ENCRYPT
                                 String passwordHash = Encrypt.encrypt(password);
-                                Log.d("testHash", "passwordHash: " +passwordHash);
+//                                Log.d("testHash", "passwordHash: " +passwordHash);
 
-
-                                byte [] md5input=password.getBytes();
-                                BigInteger md5Data= null;
-                                try{
-                                    md5Data= new BigInteger(1, Md5.encryptMD5(md5input));
-                                }
-                                catch (Exception e){
-                                    e.printStackTrace();
-                                }
-                                String  md5Str= md5Data.toString(16);
-                                Log.d("passwordHash", "onComplete: "+ md5Str);
-
-                                UserModel passwordManagerApp = new UserModel(email, md5Str, "passwordManagerApplication");
+                                UserModel passwordManagerApp = new UserModel(email, passwordHash, "passwordManagerApplication");
                                 db.collection(userId).document().set(passwordManagerApp)
                                         .addOnSuccessListener(aVoid -> {
                                             Log.d("uId","registerUser:" + userId);
