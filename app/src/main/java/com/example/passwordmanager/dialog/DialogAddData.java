@@ -121,6 +121,8 @@ public class DialogAddData extends DialogFragment {
         Log.d("passwordHash", "passwordHash: " +passwordHash);
 //        Log.d("passwordHash", "onComplete: "+ email+" "+passwordHash+" "+url);
 
+
+
         UserModel passwordManagerApp = new UserModel(email, passwordHash, url);
 
         String userId = mAuth.getCurrentUser().getUid();

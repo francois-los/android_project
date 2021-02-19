@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="253dp"
         android:layout_height="207dp"
+        android:background="#FFFFFF"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_email"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -7,19 +7,21 @@
     <string name="saveTitle">Nouveau compte</string>
     <string name="forgotPassword">Forgot Password ?</string>
     <string name="alreadyAccount">You already have an account ?</string>
-
+    <string name="passwordLeak">Check if it leaked</string>
+    <string name="check">Test my password</string>
     <string name="password_list">Password List</string>
-
     <string name="register">Register</string>
     <string name="login">Login</string>
-
     <string name="result_display">Result Display..</string>
     <string name="scan">Scan</string>
     <string name="addData">Ajouter des identifiants</string>
-
-
     <string name="todo">TODO</string>
+    <string name="ifLeakifSafe">print if leak or not</string>
+
+
     <string name="one">1</string>
+
+
     <string name="name">Home Loan Account</string>
     <string name="amount">53.96</string>
     <string name="iban">GL2892415196580170</string>

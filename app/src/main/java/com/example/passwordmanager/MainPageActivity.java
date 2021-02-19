@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.passwordmanager.dialog.DialogAddData;
+import com.example.passwordmanager.dialog.WebsiteData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -43,14 +45,18 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
         TextView refresh = findViewById(R.id.refresh);
         refresh.setOnClickListener(this);
 
+        Button boutonProvisoir = findViewById(R.id.boutonProvisoir);
+        boutonProvisoir.setOnClickListener(this);
+
         getUserData();
     }
 
     @Override
     public void onClick(View v) {
-        final int  idLogOut = R.id.logout;
+        final int idLogOut = R.id.logout;
         final int idRefresh = R.id.refresh;
         final int idAddData = R.id.addDataButton;
+        final int boutonProvisoir = R.id.boutonProvisoir;
         switch (v.getId()){
             case idLogOut:
                 startActivity(new Intent(MainPageActivity.this, LoginActivity.class));
@@ -62,6 +68,11 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
                 DialogAddData dialog = DialogAddData.newInstance();
                 dialog.show(getSupportFragmentManager(), "dialogAddData");
                 break;
+            case boutonProvisoir:
+                WebsiteData dialog2 = WebsiteData.newInstance();
+                dialog2.show(getSupportFragmentManager(), "websiteData");
+                break;
+
         }
     }
 
