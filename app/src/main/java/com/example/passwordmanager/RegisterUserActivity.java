@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.passwordmanager.cryptage.Encrypt;
 import com.example.passwordmanager.model.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -98,6 +99,10 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
                             FirebaseUser user = task.getResult().getUser();
                             if(user != null) {
                                 String userId = user.getUid();
+
+//                                TEST ENCRYPT
+                                String passwordHash = Encrypt.encrypt(password);
+                                Log.d("testHash", "passwordHash: " +passwordHash);
 
 
                                 byte [] md5input=password.getBytes();

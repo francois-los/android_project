@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.passwordmanager.Md5;
 import com.example.passwordmanager.R;
+import com.example.passwordmanager.cryptage.Encrypt;
 import com.example.passwordmanager.model.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -117,18 +118,27 @@ public class DialogAddData extends DialogFragment {
 
         progressBar3.setVisibility(View.VISIBLE);
 
-        byte [] md5input=password.getBytes();
-        BigInteger md5Data= null;
-        try{
-            md5Data= new BigInteger(1, Md5.encryptMD5(md5input));
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        String  md5Str= md5Data.toString(16);
-        Log.d("passwordHash", "onComplete: "+ email+" "+md5Str+" "+url);
 
-        UserModel passwordManagerApp = new UserModel(email, md5Str, url);
+        //                                TEST ENCRYPT
+        String passwordHash = Encrypt.encrypt(password);
+        Log.d("testHash", "passwordHash: " +passwordHash);
+
+
+//        byte [] md5input=password.getBytes();
+//        BigInteger md5Data= null;
+//        try{
+//            md5Data= new BigInteger(1, Md5.encryptMD5(md5input));
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+//
+//
+//
+//        String  passwordHash= md5Data.toString(16);
+//        Log.d("passwordHash", "onComplete: "+ email+" "+passwordHash+" "+url);
+
+        UserModel passwordManagerApp = new UserModel(email, passwordHash, url);
 
         String userId = mAuth.getCurrentUser().getUid();
         db.collection(userId).document().set(passwordManagerApp)
