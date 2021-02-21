@@ -7,34 +7,41 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.passwordmanager.adapter.WebSiteAdapter;
 import com.example.passwordmanager.dialog.DialogAddData;
 import com.example.passwordmanager.dialog.WebsiteData;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.passwordmanager.model.UserModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class MainPageActivity extends AppCompatActivity implements View.OnClickListener {
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+public class MainPageActivity extends AppCompatActivity implements View.OnClickListener, WebSiteAdapter.OnDataListener {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private RecyclerView recyclerView;
+    private WebSiteAdapter adapter;
+    List<UserModel> webSiteList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        webSiteList = new ArrayList<>();
+        recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+        adapter = new WebSiteAdapter(webSiteList, this);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
 
         TextView logout = findViewById(R.id.logout);
         logout.setOnClickListener(this);
@@ -77,36 +84,37 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-
     private void getUserData() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if(user != null) {
-            final String userId = user.getUid();
+            //final String userId = user.getUid();
+            String userId = "7dbadYDcnMMfhkh1ozNVFVjuPd72";
             db.collection(userId)
                     .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                List<Map> userData = new ArrayList<>();
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Log.d("dataUser", document.getId() + " => " + document.getData());
-                                    Map<String, Object> map = document.getData();
-                                    userData.add(map);
-                                }
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
 
-                                //
-                                for (int i = 0 ; i < userData.size() ; i++)
-                                    Log.d("listDataUser" , userData.get(i).toString());
-                                //
-
-                            } else {
-                                Log.d("dataUser", "Error getting documents: ", task.getException());
-                            }
+                        List<UserModel> userData = new ArrayList<>();
+                        for(QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
+                            UserModel model = snapshot.toObject(UserModel.class);
+                            userData.add(model);
                         }
+
+                        //
+                        for (int i = 0 ; i < userData.size() ; i++)
+                            Log.d("listDataUser" , userData.get(i).toString());
+                        //
+
+                        this.runOnUiThread(() -> {
+                            webSiteList.addAll(userData);
+                            recyclerView.post(() -> adapter.notifyDataSetChanged());
+                        });
                     });
         }
+    }
 
+    @Override
+    public void onDataClick(int position) {
+        Log.d("TAG", "onDataClick: " + webSiteList.get(position).getUrl());
     }
 }

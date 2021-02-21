@@ -1,4 +1,4 @@
-package com.example.passwordmanager.model;
+package com.example.passwordmanager.dialog;
 
 import android.graphics.Point;
 import android.os.Bundle;
@@ -11,17 +11,17 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-
 import com.example.passwordmanager.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.passwordmanager.model.ApiHashes;
+import com.example.passwordmanager.model.RetrofitInterface;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

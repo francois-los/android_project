@@ -1,4 +1,4 @@
-package com.example.passwordmanager.model;
+package com.example.passwordmanager.dialog;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
