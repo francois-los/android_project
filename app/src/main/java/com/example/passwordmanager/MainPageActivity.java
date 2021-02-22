@@ -52,9 +52,6 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
         TextView refresh = findViewById(R.id.refresh);
         refresh.setOnClickListener(this);
 
-        Button boutonProvisoir = findViewById(R.id.boutonProvisoir);
-        boutonProvisoir.setOnClickListener(this);
-
         getUserData();
     }
 
@@ -63,7 +60,7 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
         final int idLogOut = R.id.logout;
         final int idRefresh = R.id.refresh;
         final int idAddData = R.id.addDataButton;
-        final int boutonProvisoir = R.id.boutonProvisoir;
+//        final int boutonProvisoir = R.id.boutonProvisoir;
         switch (v.getId()){
             case idLogOut:
                 startActivity(new Intent(MainPageActivity.this, LoginActivity.class));
@@ -75,11 +72,10 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
                 DialogAddData dialog = DialogAddData.newInstance();
                 dialog.show(getSupportFragmentManager(), "dialogAddData");
                 break;
-            case boutonProvisoir:
-                WebsiteData dialog2 = WebsiteData.newInstance();
-                dialog2.show(getSupportFragmentManager(), "websiteData");
-                break;
-
+//            case boutonProvisoir:
+//                WebsiteData dialog2 = WebsiteData.newInstance();
+//                dialog2.show(getSupportFragmentManager(), "websiteData");
+//                break;
         }
     }
 
@@ -88,33 +84,36 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if(user != null) {
-            //final String userId = user.getUid();
-            String userId = "7dbadYDcnMMfhkh1ozNVFVjuPd72";
+            final String userId = user.getUid();
+//            String userId = "7dbadYDcnMMfhkh1ozNVFVjuPd72";
             db.collection(userId)
-                    .get()
-                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
 
-                        List<UserModel> userData = new ArrayList<>();
-                        for(QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
-                            UserModel model = snapshot.toObject(UserModel.class);
-                            userData.add(model);
-                        }
+                    List<UserModel> userData = new ArrayList<>();
+                    for(QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
+                        UserModel model = snapshot.toObject(UserModel.class);
+                        userData.add(model);
+                    }
 
-                        //
-                        for (int i = 0 ; i < userData.size() ; i++)
-                            Log.d("listDataUser" , userData.get(i).toString());
-                        //
+                    //
+                    for (int i = 0 ; i < userData.size() ; i++)
+                        Log.d("listDataUser" , userData.get(i).toString());
+                    //
 
-                        this.runOnUiThread(() -> {
-                            webSiteList.addAll(userData);
-                            recyclerView.post(() -> adapter.notifyDataSetChanged());
-                        });
+                    this.runOnUiThread(() -> {
+                        webSiteList.addAll(userData);
+                        recyclerView.post(() -> adapter.notifyDataSetChanged());
                     });
+                });
         }
     }
 
     @Override
     public void onDataClick(int position) {
-        Log.d("TAG", "onDataClick: " + webSiteList.get(position).getUrl());
+//        Log.d("TAG", "onDataClick: " + webSiteList.get(position).getUrl());
+        UserModel userModel = webSiteList.get(position);
+        WebsiteData dialog2 = WebsiteData.newInstance(userModel.getUrl(),userModel.getEmail(),userModel.getPassword());
+        dialog2.show(getSupportFragmentManager(), "websiteData");
     }
 }

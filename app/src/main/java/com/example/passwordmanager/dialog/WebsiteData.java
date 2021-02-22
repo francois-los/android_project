@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.passwordmanager.R;
+import com.example.passwordmanager.cryptage.Decrypt;
 import com.example.passwordmanager.model.ApiHashes;
 import com.example.passwordmanager.model.RetrofitInterface;
 
@@ -36,6 +37,11 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
     private TextView passwordval;
     private String passwordvalue;
 
+    private TextView urlTextView;
+    private TextView emailTextView;
+    private TextView passwordTextView;
+
+
     private Button seepass;
 
     private boolean pwned = FALSE;
@@ -44,9 +50,12 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
 
     }
 
-    public static WebsiteData newInstance() {
-        Bundle args = new Bundle();
+    public static WebsiteData newInstance(String url, String email, String password) {
         WebsiteData fragment = new WebsiteData();
+        Bundle args = new Bundle();
+        args.putString("url", url);
+        args.putString("email", email);
+        args.putString("password", password);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,8 +69,28 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
         apicallbtn.setOnClickListener(this);
         seepass = (Button) view.findViewById(R.id.seePassword);
         seepass.setOnClickListener(this);
-        passwordval = (TextView) view.findViewById(R.id.textView7);
-        passwordvalue = passwordval.getText().toString().trim();
+
+
+        Bundle bundle = new Bundle();
+        bundle = this.getArguments();
+        String url = bundle.getString("url");
+        String email = bundle.getString("email");
+        String passwordHashed = bundle.getString("password");
+
+
+        urlTextView = (TextView) view.findViewById(R.id.webSiteUrl);
+        urlTextView.setText(url);
+
+        emailTextView = (TextView) view.findViewById(R.id.email);
+        emailTextView.setText(email);
+
+        passwordTextView = (TextView) view.findViewById(R.id.passwordClearOrNot);
+        passwordTextView.setText(passwordHashed);
+
+        //        access to cleared password
+        passwordvalue = Decrypt.decrypt(passwordTextView.getText().toString().trim());
+
+
 
         return view;
     }
@@ -102,44 +131,48 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.seePassword: //code to make the code visible
-                                     break;
-            case R.id.button4:  String sha1 = "";
-                                try {
-                                    MessageDigest digest = MessageDigest.getInstance("SHA-1");
-                                    digest.reset();
-                                    digest.update(passwordvalue.getBytes("utf8"));
-                                    sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
-                                } catch (Exception e){
-                                    e.printStackTrace();
-                                }
-                                String ffchars = sha1.substring(0, 5);
-                                RetrofitInstance.setPrefix(ffchars);
-                                RetrofitInterface retro = RetrofitInstance.getRetrofitInstance().create(RetrofitInterface.class);
-                                Call<List<ApiHashes>> listcall = retro.getallhashes();
-                                String finalSha = sha1;
-                                listcall.enqueue(new Callback<List<ApiHashes>>() {
-                                    @Override
-                                    public void onResponse(Call<List<ApiHashes>> call, Response<List<ApiHashes>> response) {
-                                        int l = response.body().size();
-                                        for(int i = 0 ; i < l ; i++){
-                                            if(finalSha.equals(response.body().get(i))){
-                                                pwned = TRUE;
-                                            }
-                                        }
-                                    }
+            case R.id.seePassword:
+                 passwordTextView.setText(passwordvalue);
+                 break;
 
-                                    @Override
-                                    public void onFailure(Call<List<ApiHashes>> call, Throwable t) {
-                                        Log.d("err","failed to perform api call to haveibeenpwned");
-                                    }
-                                });
-                                if(pwned){
-                                    apicallbtn.setText("you have been pwned");
-                                }else{
-                                    apicallbtn.setText("you are safe");
-                                }
-                                break;
+            case R.id.button4:  String sha1 = "";
+                try {
+                    MessageDigest digest = MessageDigest.getInstance("SHA-1");
+                    digest.reset();
+                    Log.d("tagPasswordOnClick", "onClick test Password: "+passwordvalue);
+                    digest.update(passwordvalue.getBytes("utf8"));
+
+                    sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                String ffchars = sha1.substring(0, 5);
+                RetrofitInstance.setPrefix(ffchars);
+                RetrofitInterface retro = RetrofitInstance.getRetrofitInstance().create(RetrofitInterface.class);
+                Call<List<ApiHashes>> listcall = retro.getallhashes();
+                String finalSha = sha1;
+                listcall.enqueue(new Callback<List<ApiHashes>>() {
+                    @Override
+                    public void onResponse(Call<List<ApiHashes>> call, Response<List<ApiHashes>> response) {
+                        int l = response.body().size();
+                        for(int i = 0 ; i < l ; i++){
+                            if(finalSha.equals(response.body().get(i))){
+                                pwned = TRUE;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<ApiHashes>> call, Throwable t) {
+                        Log.d("err","failed to perform api call to haveibeenpwned");
+                    }
+                });
+                if(pwned){
+                    apicallbtn.setText("you have been pwned");
+                }else{
+                    apicallbtn.setText("you are safe");
+                }
+                break;
 
         }
     }

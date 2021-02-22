@@ -7,39 +7,14 @@
     android:padding="5dp">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="monospace"
-        android:textSize="20sp"
-        android:textColor="@color/grey"
-        android:text="Username : " />
-
-    <TextView
         android:id="@+id/userNameTextView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="monospace"
+        android:layout_marginStart="0dp"
         android:textSize="20sp"
-        android:textColor="@color/black"
-        android:layout_marginStart="5dp"
-        android:hint="user entry" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:fontFamily="monospace"
-        android:textSize="20sp"
-        android:textColor="@color/grey"
-        android:text="Password : " />
-
-    <TextView
-        android:id="@+id/passwordTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="monospace"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:layout_marginStart="5dp"
-        android:hint="user entry" />
+        android:hint="user entry"
+        android:textColor="@color/black" />
 
 </LinearLayout>

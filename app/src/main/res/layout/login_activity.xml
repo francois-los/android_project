@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00BCD4"
-    tools:context=".MainActivity">
+    tools:context=".MainPageActivity">
 
     <TextView
         android:id="@+id/appTitle2"

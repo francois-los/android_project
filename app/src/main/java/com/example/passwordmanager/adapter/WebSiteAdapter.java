@@ -48,15 +48,12 @@ public class WebSiteAdapter extends RecyclerView.Adapter<WebSiteAdapter.ViewHold
             super(itemView);
             onDataListener = listener;
             userNameTextView = itemView.findViewById(R.id.userNameTextView);
-            passwordTextView = itemView.findViewById(R.id.passwordTextView);
-
             itemView.setOnClickListener(this);
         }
 
         //A modifier avec le layout
         public void setData(UserModel userModel) {
-            userNameTextView.setText(userModel.getEmail());
-            passwordTextView.setText(userModel.getPassword());
+            userNameTextView.setText(userModel.getUrl());
             Log.d("TAG", "setData: test");
         }
 
