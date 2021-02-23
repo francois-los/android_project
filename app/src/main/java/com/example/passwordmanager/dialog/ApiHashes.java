@@ -1,13 +1,16 @@
-package com.example.passwordmanager.model;
+package com.example.passwordmanager.dialog;
+
+import com.google.gson.annotations.SerializedName;
 
 public class ApiHashes {
-    private String sufiix;
+    @SerializedName("url")
+    String url;
 
-    public String getSufiix() {
-        return sufiix;
+    public String getUrl() {
+        return url;
     }
 
-    public void setSufiix(String sufiix) {
-        this.sufiix = sufiix;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
