@@ -20,6 +20,8 @@ public class WebSiteAdapter extends RecyclerView.Adapter<WebSiteAdapter.ViewHold
 
     public WebSiteAdapter(List<UserModel> webSiteList, OnDataListener listener) {
         this.webSiteList = webSiteList;
+
+//        Log.d("dataTestReception", "WebSiteAdapter: "+webSiteList);
         this.onDataListener = listener;
     }
 

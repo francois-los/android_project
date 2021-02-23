@@ -39,9 +39,13 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
         webSiteList = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+
+
+
         adapter = new WebSiteAdapter(webSiteList, this);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
+
 
         TextView logout = findViewById(R.id.logout);
         logout.setOnClickListener(this);
@@ -84,12 +88,11 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if(user != null) {
-            final String userId = user.getUid();
-//            String userId = "7dbadYDcnMMfhkh1ozNVFVjuPd72";
+//            final String userId = user.getUid();
+            final String userId = "jq4c4xyqKOgxvNlU6vGQfXoMxS72";
             db.collection(userId)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-
                     List<UserModel> userData = new ArrayList<>();
                     for(QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
                         UserModel model = snapshot.toObject(UserModel.class);
