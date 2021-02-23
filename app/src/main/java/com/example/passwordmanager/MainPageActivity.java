@@ -3,9 +3,9 @@ package com.example.passwordmanager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.passwordmanager.adapter.WebSiteAdapter;
 import com.example.passwordmanager.dialog.DialogAddData;
@@ -20,8 +20,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,50 +38,31 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         webSiteList = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
-
-
 
         adapter = new WebSiteAdapter(webSiteList, this);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
 
-
-        TextView logout = findViewById(R.id.logout);
-        logout.setOnClickListener(this);
-
         FloatingActionButton addDataButton = findViewById(R.id.addDataButton);
         addDataButton.setOnClickListener(this);
-
-        TextView refresh = findViewById(R.id.refresh);
-        refresh.setOnClickListener(this);
 
         getUserData();
     }
 
     @Override
     public void onClick(View v) {
-        final int idLogOut = R.id.logout;
-        final int idRefresh = R.id.refresh;
         final int idAddData = R.id.addDataButton;
-//        final int boutonProvisoir = R.id.boutonProvisoir;
         switch (v.getId()){
-            case idLogOut:
-                startActivity(new Intent(MainPageActivity.this, LoginActivity.class));
-                break;
-            case idRefresh:
-                startActivity(new Intent(MainPageActivity.this, MainPageActivity.class));
-                break;
             case idAddData:
                 DialogAddData dialog = DialogAddData.newInstance();
                 dialog.show(getSupportFragmentManager(), "dialogAddData");
                 break;
-//            case boutonProvisoir:
-//                WebsiteData dialog2 = WebsiteData.newInstance();
-//                dialog2.show(getSupportFragmentManager(), "websiteData");
-//                break;
         }
     }
 
@@ -113,8 +96,32 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        final int refreshId = R.id.refresh;
+        final int exitId = R.id.exit;
+        switch (item.getItemId()) {
+            case refreshId:
+                startActivity(new Intent(MainPageActivity.this, MainPageActivity.class));
+                this.overridePendingTransition(0,0);
+                finish();
+                return true;
+            case exitId:
+                startActivity(new Intent(MainPageActivity.this, LoginActivity.class));
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onDataClick(int position) {
-//        Log.d("TAG", "onDataClick: " + webSiteList.get(position).getUrl());
         UserModel userModel = webSiteList.get(position);
         WebsiteData dialog2 = WebsiteData.newInstance(userModel.getUrl(),userModel.getEmail(),userModel.getPassword());
         dialog2.show(getSupportFragmentManager(), "websiteData");

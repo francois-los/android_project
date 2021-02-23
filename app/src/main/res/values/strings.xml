@@ -27,4 +27,6 @@
     <string name="amount">53.96</string>
     <string name="iban">GL2892415196580170</string>
     <string name="currency">$</string>
+    <string name="exit">exit</string>
+    <string name="refresh">refresh</string>
 </resources>

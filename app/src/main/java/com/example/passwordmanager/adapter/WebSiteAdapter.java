@@ -43,19 +43,19 @@ public class WebSiteAdapter extends RecyclerView.Adapter<WebSiteAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView userNameTextView, passwordTextView;
+        TextView urlTextView;
         private final OnDataListener onDataListener;
 
         public ViewHolder(@NonNull View itemView, OnDataListener listener) {
             super(itemView);
             onDataListener = listener;
-            userNameTextView = itemView.findViewById(R.id.userNameTextView);
+            urlTextView = itemView.findViewById(R.id.urlTextView);
             itemView.setOnClickListener(this);
         }
 
         //A modifier avec le layout
         public void setData(UserModel userModel) {
-            userNameTextView.setText(userModel.getUrl());
+            urlTextView.setText(userModel.getUrl());
             Log.d("TAG", "setData: test");
         }
 

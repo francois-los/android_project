@@ -1,7 +1,5 @@
 package com.example.passwordmanager.model;
 
-import java.util.List;
-
 public class UserModel {
     private String email;
     private String password;
