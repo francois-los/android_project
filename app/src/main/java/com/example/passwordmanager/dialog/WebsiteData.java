@@ -9,12 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.passwordmanager.R;
 import com.example.passwordmanager.cryptage.Decrypt;
-import com.example.passwordmanager.model.ApiHashes;
-import com.example.passwordmanager.model.RetrofitInterface;
+
+import com.example.passwordmanager.dialog.ApiHashes;
+import com.example.passwordmanager.dialog.RetrofitInterface;
+
+import com.squareup.picasso.Picasso;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -23,13 +27,10 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-
 
 public class WebsiteData extends DialogFragment implements View.OnClickListener{
 
@@ -40,11 +41,11 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
     private TextView urlTextView;
     private TextView emailTextView;
     private TextView passwordTextView;
+    private ImageView imageView;
 
 
     private Button seepass;
 
-    private boolean pwned = FALSE;
 
     public WebsiteData() {
 
@@ -69,6 +70,7 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
         apicallbtn.setOnClickListener(this);
         seepass = (Button) view.findViewById(R.id.seePassword);
         seepass.setOnClickListener(this);
+        imageView = (ImageView) view.findViewById(R.id.image);
 
 
         Bundle bundle = new Bundle();
@@ -135,43 +137,23 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
                  passwordTextView.setText(passwordvalue);
                  break;
 
-            case R.id.button4:  String sha1 = "";
-                try {
-                    MessageDigest digest = MessageDigest.getInstance("SHA-1");
-                    digest.reset();
-                    Log.d("tagPasswordOnClick", "onClick test Password: "+passwordvalue);
-                    digest.update(passwordvalue.getBytes("utf8"));
-
-                    sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                String ffchars = sha1.substring(0, 5);
-                RetrofitInstance.setPrefix(ffchars);
+            case R.id.button4:  
                 RetrofitInterface retro = RetrofitInstance.getRetrofitInstance().create(RetrofitInterface.class);
-                Call<List<ApiHashes>> listcall = retro.getallhashes();
-                String finalSha = sha1;
+                Call<List<ApiHashes>> listcall = retro.getAllPhotos();
                 listcall.enqueue(new Callback<List<ApiHashes>>() {
                     @Override
                     public void onResponse(Call<List<ApiHashes>> call, Response<List<ApiHashes>> response) {
-                        int l = response.body().size();
-                        for(int i = 0 ; i < l ; i++){
-                            if(finalSha.equals(response.body().get(i))){
-                                pwned = TRUE;
-                            }
-                        }
+                        Picasso
+                                .get()
+                                .load(response.body().get(1).url)
+                                .into(imageView);
                     }
 
                     @Override
                     public void onFailure(Call<List<ApiHashes>> call, Throwable t) {
-                        Log.d("err","failed to perform api call to haveibeenpwned");
+                        Log.d("tagtag", "on failure");
                     }
                 });
-                if(pwned){
-                    apicallbtn.setText("you have been pwned");
-                }else{
-                    apicallbtn.setText("you are safe");
-                }
                 break;
 
         }
