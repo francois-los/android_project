@@ -31,4 +31,6 @@
     <string name="currency">$</string>
     <string name="exit">exit</string>
     <string name="refresh">refresh</string>
+    <string name="generate_api_image">generate_api_image</string>
+    <string name="apiimg">apiimg</string>
 </resources>

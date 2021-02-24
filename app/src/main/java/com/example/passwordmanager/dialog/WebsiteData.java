@@ -78,7 +78,23 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
         String url = bundle.getString("url");
         String email = bundle.getString("email");
         String passwordHashed = bundle.getString("password");
+        
+        RetrofitInterface retro = RetrofitInstance.getRetrofitInstance().create(RetrofitInterface.class);
+        Call<List<ApiHashes>> listcall = retro.getAllPhotos();
+        listcall.enqueue(new Callback<List<ApiHashes>>() {
+                    @Override
+                    public void onResponse(Call<List<ApiHashes>> call, Response<List<ApiHashes>> response) {
+                        Picasso
+                                .get()
+                                .load(response.body().get(1).url)
+                                .into(imageView);
+                    }
 
+                    @Override
+                    public void onFailure(Call<List<ApiHashes>> call, Throwable t) {
+                        Log.d("tagtag", "on failure");
+                    }
+                });
 
         urlTextView = (TextView) view.findViewById(R.id.webSiteUrl);
         urlTextView.setText(url);
@@ -136,26 +152,6 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
             case R.id.seePassword:
                  passwordTextView.setText(passwordvalue);
                  break;
-
-            case R.id.button4:  
-                RetrofitInterface retro = RetrofitInstance.getRetrofitInstance().create(RetrofitInterface.class);
-                Call<List<ApiHashes>> listcall = retro.getAllPhotos();
-                listcall.enqueue(new Callback<List<ApiHashes>>() {
-                    @Override
-                    public void onResponse(Call<List<ApiHashes>> call, Response<List<ApiHashes>> response) {
-                        Picasso
-                                .get()
-                                .load(response.body().get(1).url)
-                                .into(imageView);
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<ApiHashes>> call, Throwable t) {
-                        Log.d("tagtag", "on failure");
-                    }
-                });
-                break;
-
         }
     }
 }

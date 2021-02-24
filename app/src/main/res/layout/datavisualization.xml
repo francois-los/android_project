@@ -56,17 +56,6 @@
         app:layout_constraintStart_toEndOf="@+id/passwordClearOrNot"
         app:layout_constraintTop_toTopOf="@+id/passwordClearOrNot" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/generate_api_image"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <ProgressBar
         android:id="@+id/progressBar4"
         style="?android:attr/progressBarStyle"
@@ -92,3 +81,4 @@
         app:srcCompat="@drawable/dialog_background" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
