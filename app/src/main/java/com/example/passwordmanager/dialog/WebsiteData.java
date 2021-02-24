@@ -66,8 +66,6 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.datavisualization, container, false);
-        apicallbtn = (Button) view.findViewById(R.id.button4);
-        apicallbtn.setOnClickListener(this);
         seepass = (Button) view.findViewById(R.id.seePassword);
         seepass.setOnClickListener(this);
         imageView = (ImageView) view.findViewById(R.id.image);
