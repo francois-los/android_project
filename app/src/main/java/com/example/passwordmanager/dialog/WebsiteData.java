@@ -37,6 +37,7 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
     private Button apicallbtn;
     private TextView passwordval;
     private String passwordvalue;
+    private boolean variable;
 
     private TextView urlTextView;
     private TextView emailTextView;
@@ -65,6 +66,7 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        variable = false;
         View view = inflater.inflate(R.layout.datavisualization, container, false);
         seepass = (Button) view.findViewById(R.id.seePassword);
         seepass.setOnClickListener(this);
@@ -149,7 +151,15 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.seePassword:
-                 passwordTextView.setText(passwordvalue);
+
+                if(variable==true){
+                    variable=false;
+                    passwordTextView.setText(passwordvalue);
+                }
+                else{
+                    variable=true;
+                    passwordTextView.setText("••••••••••");
+                }
                  break;
         }
     }
