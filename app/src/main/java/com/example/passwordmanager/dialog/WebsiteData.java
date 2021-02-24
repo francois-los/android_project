@@ -79,12 +79,13 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
         
         RetrofitInterface retro = RetrofitInstance.getRetrofitInstance().create(RetrofitInterface.class);
         Call<List<ApiHashes>> listcall = retro.getAllPhotos();
+        int randomPic = (int) (Math.random() * (5000 - 0)) + 0;
         listcall.enqueue(new Callback<List<ApiHashes>>() {
                     @Override
                     public void onResponse(Call<List<ApiHashes>> call, Response<List<ApiHashes>> response) {
                         Picasso
                                 .get()
-                                .load(response.body().get(1).url)
+                                .load(response.body().get(randomPic).url)
                                 .into(imageView);
                     }
 
@@ -101,10 +102,10 @@ public class WebsiteData extends DialogFragment implements View.OnClickListener{
         emailTextView.setText(email);
 
         passwordTextView = (TextView) view.findViewById(R.id.passwordClearOrNot);
-        passwordTextView.setText(passwordHashed);
+        passwordTextView.setText("••••••••••");
 
         //        access to cleared password
-        passwordvalue = Decrypt.decrypt(passwordTextView.getText().toString().trim());
+        passwordvalue = Decrypt.decrypt(passwordHashed);
 
 
 
