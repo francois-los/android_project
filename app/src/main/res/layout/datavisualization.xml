@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout3"
@@ -9,16 +8,16 @@
     android:layout_margin="20dp"
     android:layout_marginStart="20dp"
     android:layout_marginTop="2dp"
-    android:background="@color/cardview_dark_background"
+    android:background="@color/white"
     android:padding="10dp"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
     <TextView
         android:id="@+id/webSiteUrl"
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="@string/url"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,9 +25,9 @@
 
     <TextView
         android:id="@+id/email"
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="@string/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
@@ -46,9 +45,9 @@
 
     <Button
         android:id="@+id/seePassword"
-        android:layout_margin="10dp"
         android:layout_width="53dp"
         android:layout_height="48dp"
+        android:layout_margin="10dp"
         android:layout_marginStart="10dp"
         android:background="@android:drawable/ic_menu_view"
         app:layout_constraintBottom_toBottomOf="@+id/passwordClearOrNot"
@@ -84,10 +83,12 @@
         android:layout_width="91dp"
         android:layout_height="84dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:contentDescription="@string/apiimg"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordClearOrNot"
         app:srcCompat="@drawable/dialog_background" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

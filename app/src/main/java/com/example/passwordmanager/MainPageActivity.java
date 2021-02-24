@@ -71,8 +71,8 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if(user != null) {
-//            final String userId = user.getUid();
-            final String userId = "jq4c4xyqKOgxvNlU6vGQfXoMxS72";
+            //            final String userId = "jq4c4xyqKOgxvNlU6vGQfXoMxS72";
+            final String userId = user.getUid();
             db.collection(userId)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
