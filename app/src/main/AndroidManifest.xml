@@ -28,6 +28,7 @@
         <activity android:name=".RegisterUserActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainPageActivity" />
+        <activity android:name=".ForgottenPasswordActivity" />
     </application>
 
 </manifest>
